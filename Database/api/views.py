@@ -205,3 +205,35 @@ def password_reset_request(request):
         return Response({'detail': 'Failed to send reset email'}, status=500)
 
     return Response({'detail': 'Password reset email sent successfully'}, status=200)
+
+
+
+
+
+
+from rest_framework.views import exception_handler
+from rest_framework.response import Response
+from rest_framework import status
+
+def custom_exception_handler(exc, context):
+    response = exception_handler(exc, context)
+
+    if response is not None and response.status_code == 404:
+        # Customize the 404 response here
+        custom_response_data = {'detail': 'Not found'}
+        response.data = custom_response_data
+
+    return response
+from rest_framework.views import exception_handler
+from rest_framework import status
+from rest_framework.response import Response
+
+def custom_exception_handler(exc, context):
+    response = exception_handler(exc, context)
+
+    if response is not None and response.status_code == 404:
+        # Customize the 404 response here
+        custom_response_data = {'detail': 'Not found'}
+        response.data = custom_response_data
+
+    return response

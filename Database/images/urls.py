@@ -14,7 +14,7 @@ router.register(r'images-home', ImageHomeViewSet, basename="image")
 router.register(r'images-cat',ImageCategoryViewset ,basename= "images-cat")
 router.register(r'video-cat',VideoCategoryViewset,basename='video-cat')
 
-
+import debug_toolbar
 
 
 urlpatterns = [
@@ -27,5 +27,7 @@ urlpatterns = [
    
 
     path('memberships/', MembershipViewSet.as_view({'get': 'list', 'post': 'create'})),
+     path('__debug__/', include(debug_toolbar.urls)),
      
 ]
+

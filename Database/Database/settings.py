@@ -23,25 +23,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-15buagt%h5)_y$f$!+0j5$!gxxsp)cvve#=#fu0x672idsclis'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+DEBUG = False
+# settings.py
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # or "django.contrib.sessions.backends.cache"
+
+# settings.py
+LOGIN_URL = "/admin/login/"
 
 # Application definition
 
 INSTALLED_APPS = [
-    #   'jet',
-        #   'jet.dashboard',
-    # 'grappelli',
-
+  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+   
     'api',
     'rest_framework',
     'rest_framework_simplejwt',
@@ -103,6 +105,7 @@ REST_FRAMEWORK = {
       
 
     ),
+    'EXCEPTION_HANDLER': 'your_app_name.handlers.custom_exception_handler',
         
 }
 
@@ -147,13 +150,20 @@ WSGI_APPLICATION = 'Database.wsgi.application'
 
 AUTH_USER_MODEL = 'api.User'
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'stockhubpro',
+        'USER': 'root',
+        'PASSWORD': 'Rahul@2004',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
+
+
+
+
 
 
 # Password validation
@@ -191,15 +201,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = '/var/www/static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'data' is my media folder
+MEDIA_ROOT = '/var/www/media/' # 'data' is my media folder
 MEDIA_URL = '/media/'
-
 
 
 # RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")

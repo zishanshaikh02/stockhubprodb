@@ -24,22 +24,23 @@ class ImageModel(models.Model):
     def add_watermark(self):
         image = Image.open(self.copy_img.path)
         draw = ImageDraw.Draw(image)
-        # width, height = image.size
-        width, height = 900,600
-        
-        watermark_text = "©StockBoxPro"
-        # font = ImageFont.load_default()
-        font_size = 86  # Adjust the font size as needed
-        font = ImageFont.truetype("arial.ttf", font_size)
 
+        width, height = 900, 600
+        watermark_text = "©StockBoxPro"
+        font_size = 86
+        font_path = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+        #font = ImageFont.truetype(font_path, font_size)
+        font = ImageFont.load_default()
+
+        # Get text size using the font
         text_width, text_height = draw.textsize(watermark_text, font)  # Use draw.textsize() to get text size
         x = (width - text_width) // 2
         y = (height - text_height) // 2
 
 
+
         draw.text((x, y), watermark_text, fill=(255, 255, 255, 128), font=font)
         image.save(self.copy_img.path)
-
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.add_watermark()
